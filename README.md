@@ -54,13 +54,17 @@
 
 ```
 dongne-golmok/
-├── docs/                     # 기획 문서 (이 커밋에 포함)
+├── docs/                     # 기획 문서
 │   ├── README.md             # 문서 인덱스
 │   ├── MISSION.md            # 정체성·v1 범위·성공기준
 │   ├── CONCEPT.md            # AI 컨시어지·차별점·비주얼 톤
 │   ├── ROADMAP.md            # v1 → v1.5 → v2 → v3
+│   ├── PAYMENT.md            # 결제 컨셉·4가지 모델·v2 도입 계획
 │   ├── shops_mock.md         # 염창동 50개 가게 목업
-│   ├── scenarios_mock.md     # 8개 컨시어지 데모 시나리오
+│   ├── scenarios_mock.md     # 8+2개 컨시어지 데모 시나리오
+│   ├── sessions/             # Claude Code 세션 작업 지시서 보관
+│   │   ├── README.md
+│   │   └── 2a_payment.md
 │   └── pitch_deck/
 │       └── dongne_golmok_v4.pptx
 ├── api/                      # Vercel Serverless Functions (예정)
