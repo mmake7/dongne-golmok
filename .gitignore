@@ -1,0 +1,51 @@
+# --- Environment / Secrets ---
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+*.pem
+*.key
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Build / Framework outputs ---
+.next/
+.vercel/
+.turbo/
+dist/
+build/
+out/
+
+# --- dev-server runtime artifacts ---
+dev.err
+dev.out
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Logs ---
+*.log
+logs/
+
+# --- Misc ---
+.cache/
+tmp/
+*.tmp
+*.bak
+
+# --- 이미지 (생성 결과는 commit, 임시 작업본만 제외) ---
+public/images/temp/
