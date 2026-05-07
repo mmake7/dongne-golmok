@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동네골목 GOLMOK. — 염창동</title>
+  <meta name="description" content="동네 친구에게 묻는 것처럼. 숨어있는 우리동네가게와 주민이 서로를 발견하는 곳." />
+
+  <!-- Google Fonts: Noto Serif KR (헤더) + Pretendard (본문) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // 디자인 토큰 — 따뜻한 흙·크라프트 톤
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#E8DFD3',       // 메인 배경 — 크라프트 베이지
+            warm: '#F5E6C8',        // 보조 배경 — 따뜻한 옐로우
+            ink: '#3E2A1F',         // 본문 — 짙은 갈색
+            'orange-maple': '#D87844', // 강조 — 단풍 오렌지 (정착형/CTA)
+            'red-clay': '#A0413A',  // 강조 보조 — 짙은 적갈색 (1인메이커)
+            moss: '#7A8B5C',        // 이동형 가게 표시 — 모스 그린
+            paper: '#C8B89C'        // 카드 테두리 — 종이 결
+          },
+          fontFamily: {
+            serif: ['"Noto Serif KR"', 'serif'],
+            sans: ['Pretendard', '-apple-system', 'sans-serif']
+          },
+          boxShadow: {
+            paper: '0 1px 0 rgba(62, 42, 31, 0.08), 0 4px 12px rgba(62, 42, 31, 0.06)',
+            'paper-lg': '0 2px 0 rgba(62, 42, 31, 0.10), 0 12px 28px rgba(62, 42, 31, 0.10)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- React 18 + Babel standalone -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    html, body { background-color: #E8DFD3; color: #3E2A1F; font-family: 'Pretendard', -apple-system, sans-serif; }
+    .font-serif-ko { font-family: 'Noto Serif KR', serif; }
+    /* 종이 결 배경 */
+    .paper-bg {
+      background-color: #E8DFD3;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(62, 42, 31, 0.04) 1px, transparent 0),
+        linear-gradient(135deg, rgba(245, 230, 200, 0.4) 0%, rgba(232, 223, 211, 0) 100%);
+      background-size: 16px 16px, 100% 100%;
+    }
+    /* 모달 백드롭 */
+    .backdrop { background-color: rgba(62, 42, 31, 0.5); backdrop-filter: blur(2px); }
+    /* 컨시어지 입력 그림자 */
+    .concierge-input { transition: box-shadow .18s ease, transform .18s ease; }
+    .concierge-input:focus-within { box-shadow: 0 6px 18px rgba(216, 120, 68, 0.18); transform: translateY(-1px); }
+    /* 스크롤바 */
+    body::-webkit-scrollbar { width: 10px; }
+    body::-webkit-scrollbar-track { background: #E8DFD3; }
+    body::-webkit-scrollbar-thumb { background: #C8B89C; border-radius: 4px; }
+  </style>
+</head>
+<body class="paper-bg">
+  <div id="root"></div>
+
+  <script type="text/babel" data-type="module">
+    const { useState, useEffect, useMemo, useCallback } = React;
+
+    // -----------------------------------------
+    // Phase 1 — 데모 데이터·상수
+    // -----------------------------------------
+
+    const PAYMENT_BADGE = {
+      card:     { icon: '💳', label: '카드' },
+      cash:     { icon: '💵', label: '현금' },
+      transfer: { icon: '🏦', label: '계좌이체' },
+      prepay:   { icon: '🎫', label: '동네골목 선결제' }
+    };
+
+    const TYPE_COLOR = {
+      '정착형':       { bg: '#D87844', text: '#F5E6C8', label: '정착' },
+      '1인메이커':    { bg: '#A0413A', text: '#F5E6C8', label: '메이커' },
+      '이동형(정기)': { bg: '#7A8B5C', text: '#F5E6C8', label: '이동·정기' },
+      '이동형(가끔)': { bg: '#7A8B5C', text: '#F5E6C8', label: '이동·가끔' }
+    };
+
+    // 정착/이동 그룹 분류 (필터 토글용)
+    const isMobile = (type) => type && type.startsWith('이동형');
+    const isResident = (type) => !isMobile(type);
+
+    // -----------------------------------------
+    // Design System Components
+    // -----------------------------------------
+
+    function PaymentBadge({ option }) {
+      const meta = PAYMENT_BADGE[option];
+      if (!meta) return null;
+      return (
+        <span
+          className="inline-flex items-center gap-1 text-xs px-1.5 py-0.5 rounded-md bg-warm/70 border border-paper/40"
+          title={meta.label}
+        >
+          <span aria-hidden="true">{meta.icon}</span>
+          <span className="hidden sm:inline text-[11px] text-ink/70">{meta.label}</span>
+        </span>
+      );
+    }
+
+    function TypeBadge({ type }) {
+      const c = TYPE_COLOR[type] || { bg: '#C8B89C', text: '#3E2A1F', label: type };
+      return (
+        <span
+          className="text-[11px] font-medium px-2 py-0.5 rounded-full"
+          style={{ backgroundColor: c.bg, color: c.text }}
+        >
+          {c.label}
+        </span>
+      );
+    }
+
+    function ShopThumb({ shop, large }) {
+      const initial = (shop.name || '?').charAt(0);
+      const c = TYPE_COLOR[shop.type] || { bg: '#C8B89C', text: '#F5E6C8' };
+      const fontSize = large ? 88 : 56;
+      const h = large ? 'h-44 sm:h-52' : 'h-28 sm:h-32';
+      return (
+        <svg viewBox="0 0 200 120" className={`w-full ${h}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id={`g-${shop.id}`} x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stopColor={c.bg} stopOpacity="1" />
+              <stop offset="100%" stopColor={c.bg} stopOpacity="0.78" />
+            </linearGradient>
+            <pattern id={`p-${shop.id}`} width="14" height="14" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.08)" />
+            </pattern>
+          </defs>
+          <rect width="200" height="120" fill={`url(#g-${shop.id})`} />
+          <rect width="200" height="120" fill={`url(#p-${shop.id})`} />
+          <text
+            x="100" y="78" textAnchor="middle"
+            fontFamily="Noto Serif KR, serif" fontWeight="700"
+            fontSize={fontSize} fill={c.text}
+          >
+            {initial}
+          </text>
+        </svg>
+      );
+    }
+
+    // -----------------------------------------
+    // Layout Components
+    // -----------------------------------------
+
+    function Header({ neighborhoodName }) {
+      return (
+        <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur border-b border-paper/40">
+          <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div className="flex items-baseline gap-2">
+              <h1 className="font-serif-ko text-2xl sm:text-3xl font-bold text-ink leading-none">
+                동네골목
+              </h1>
+              <span className="font-serif-ko text-sm text-orange-maple tracking-wider">GOLMOK.</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-ink/60 hidden sm:inline">지금 동네는</span>
+              <span className="font-serif-ko font-semibold text-ink px-2 py-1 rounded-md bg-warm border border-paper/40">
+                {neighborhoodName}
+              </span>
+            </div>
+          </div>
+        </header>
+      );
+    }
+
+    function ConciergeBar({ onAsk, isLoading }) {
+      const [q, setQ] = useState('');
+      const submit = (e) => {
+        e.preventDefault();
+        if (!q.trim() || isLoading) return;
+        onAsk(q.trim());
+      };
+      return (
+        <section className="max-w-5xl mx-auto px-4 mt-6 sm:mt-8">
+          <form onSubmit={submit} className="concierge-input bg-warm rounded-2xl border border-paper/50 shadow-paper p-3 sm:p-4">
+            <label htmlFor="concierge-q" className="block font-serif-ko text-ink/70 text-sm mb-2 px-1">
+              동네 친구에게 묻듯이 말해보세요.
+            </label>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                id="concierge-q"
+                name="concierge-q"
+                type="text"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                placeholder="예: 밤 11시 순대 먹고 싶어"
+                className="flex-1 bg-cream/70 border border-paper/40 rounded-xl px-4 py-3 text-ink placeholder:text-ink/40 focus:outline-none focus:border-orange-maple"
+                disabled={isLoading}
+              />
+              <button
+                type="submit"
+                disabled={isLoading || !q.trim()}
+                className="font-serif-ko text-warm bg-orange-maple hover:bg-red-clay disabled:bg-paper disabled:text-ink/40 rounded-xl px-5 py-3 transition-colors"
+              >
+                {isLoading ? '듣는 중…' : '물어보기'}
+              </button>
+            </div>
+            <p className="text-xs text-ink/40 mt-2 px-1">
+              ※ Phase 1 — AI 컨시어지는 Phase 3에서 연결됩니다. 지금은 입력만 가능.
+            </p>
+          </form>
+        </section>
+      );
+    }
+
+    function TodayLine({ message, loading }) {
+      return (
+        <section className="max-w-5xl mx-auto px-4 mt-4">
+          <div className="bg-cream rounded-2xl border border-paper/40 px-4 py-3 sm:px-5 sm:py-4">
+            <div className="text-xs text-ink/50 mb-1 font-serif-ko">오늘의 동네 한 줄</div>
+            {loading ? (
+              <div className="h-5 bg-paper/30 rounded animate-pulse w-3/4" />
+            ) : (
+              <p className="text-ink leading-relaxed text-[15px] sm:text-base">{message}</p>
+            )}
+          </div>
+        </section>
+      );
+    }
+
+    function FilterBar({ filter, onChange, categoryList, currentCategory, onCategory }) {
+      const Btn = ({ value, label }) => (
+        <button
+          onClick={() => onChange(value)}
+          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            filter === value
+              ? 'bg-ink text-warm'
+              : 'bg-warm text-ink hover:bg-paper/40 border border-paper/40'
+          }`}
+        >
+          {label}
+        </button>
+      );
+      return (
+        <section className="max-w-5xl mx-auto px-4 mt-6">
+          <div className="flex items-center gap-2 mb-3">
+            <Btn value="all" label="전체" />
+            <Btn value="resident" label="정착" />
+            <Btn value="mobile" label="이동" />
+            <span className="ml-auto text-xs text-ink/50">정착형 + 메이커 = 정착</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            <button
+              onClick={() => onCategory(null)}
+              className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                currentCategory === null
+                  ? 'bg-orange-maple/10 border-orange-maple text-ink'
+                  : 'bg-cream border-paper/40 text-ink/70 hover:bg-warm'
+              }`}
+            >
+              전체 카테고리
+            </button>
+            {categoryList.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => onCategory(cat)}
+                className={`text-xs px-2.5 py-1 rounded-full border transition-colors ${
+                  currentCategory === cat
+                    ? 'bg-orange-maple/10 border-orange-maple text-ink'
+                    : 'bg-cream border-paper/40 text-ink/70 hover:bg-warm'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </section>
+      );
+    }
+
+    function ShopCard({ shop, onClick, highlighted }) {
+      return (
+        <button
+          onClick={() => onClick(shop)}
+          className={`text-left bg-cream rounded-2xl border overflow-hidden shadow-paper hover:shadow-paper-lg transition-all hover:-translate-y-0.5 ${
+            highlighted ? 'border-orange-maple ring-2 ring-orange-maple/30' : 'border-paper/40'
+          }`}
+        >
+          <div className="relative">
+            <ShopThumb shop={shop} />
+            <div className="absolute top-2 left-2">
+              <TypeBadge type={shop.type} />
+            </div>
+          </div>
+          <div className="p-3 sm:p-4">
+            <h3 className="font-serif-ko font-bold text-ink text-base sm:text-lg leading-tight truncate">
+              {shop.name}
+            </h3>
+            <p className="text-xs text-ink/60 mt-0.5 truncate">{shop.category}</p>
+            <p className="text-xs text-ink/50 mt-1 truncate">
+              {shop.location?.near || shop.location?.address}
+            </p>
+            <div className="flex flex-wrap gap-1 mt-2.5">
+              {(shop.payment_options || []).map((p) => (
+                <PaymentBadge key={p} option={p} />
+              ))}
+            </div>
+          </div>
+        </button>
+      );
+    }
+
+    function ShopDetailModal({ shop, onClose }) {
+      // ESC 닫기
+      useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        document.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+          document.removeEventListener('keydown', onKey);
+          document.body.style.overflow = '';
+        };
+      }, [onClose]);
+
+      if (!shop) return null;
+      const sched = shop.schedule || {};
+      const hasPrepay = (shop.payment_options || []).includes('prepay');
+
+      return (
+        <div
+          className="fixed inset-0 z-50 backdrop flex items-center justify-center p-4"
+          onClick={onClose}
+        >
+          <div
+            className="bg-cream max-w-2xl w-full max-h-[88vh] overflow-y-auto rounded-3xl border border-paper/40 shadow-paper-lg"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="relative">
+              <ShopThumb shop={shop} large />
+              <button
+                onClick={onClose}
+                className="absolute top-3 right-3 bg-cream/90 hover:bg-cream rounded-full w-9 h-9 flex items-center justify-center text-ink shadow-paper"
+                aria-label="닫기"
+              >
+                ✕
+              </button>
+              <div className="absolute top-3 left-3">
+                <TypeBadge type={shop.type} />
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6">
+              <div className="flex items-baseline gap-2 mb-1">
+                <h2 className="font-serif-ko font-bold text-ink text-2xl sm:text-3xl">{shop.name}</h2>
+                <span className="text-xs text-ink/50">「{shop.owner_nick}」</span>
+              </div>
+              <p className="text-sm text-ink/70">{shop.category}</p>
+
+              <div className="mt-5 grid sm:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <h4 className="font-serif-ko font-semibold text-ink/80 mb-1">위치</h4>
+                  <p className="text-ink">{shop.location?.address}</p>
+                  {shop.location?.near && (
+                    <p className="text-ink/60 text-xs mt-0.5">📍 {shop.location.near}</p>
+                  )}
+                </div>
+                <div>
+                  <h4 className="font-serif-ko font-semibold text-ink/80 mb-1">영업시간</h4>
+                  <ul className="text-ink space-y-0.5">
+                    <li>평일 — {sched.weekday || '-'}</li>
+                    <li>토 — {sched.saturday || '-'}</li>
+                    <li>일 — {sched.sunday || '-'}</li>
+                    {sched.note && <li className="text-ink/60 text-xs italic mt-1">※ {sched.note}</li>}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <h4 className="font-serif-ko font-semibold text-ink/80 mb-2">오늘의 등록 글</h4>
+                <ul className="space-y-2">
+                  {(shop.posts || []).map((p, i) => (
+                    <li key={i} className="bg-warm/60 border border-paper/30 rounded-xl px-3 py-2 text-ink text-[14px] leading-relaxed">
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-5">
+                <h4 className="font-serif-ko font-semibold text-ink/80 mb-2">결제</h4>
+                <div className="flex flex-wrap gap-2">
+                  {(shop.payment_options || []).map((p) => (
+                    <PaymentBadge key={p} option={p} />
+                  ))}
+                </div>
+                {hasPrepay && (
+                  <p className="text-xs text-ink/50 mt-2 italic">
+                    🎫 동네골목 선결제는 v2부터 실제 결제로 도입됩니다. 지금은 메타데이터 표시.
+                  </p>
+                )}
+              </div>
+
+              {(shop.tags || []).length > 0 && (
+                <div className="mt-5">
+                  <h4 className="font-serif-ko font-semibold text-ink/80 mb-2">태그</h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {shop.tags.map((t) => (
+                      <span key={t} className="text-xs px-2 py-0.5 rounded-full bg-warm border border-paper/40 text-ink/70">
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {shop.notes && (
+                <p className="mt-5 text-xs text-ink/60 italic">📝 {shop.notes}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="max-w-5xl mx-auto px-4 mt-12 mb-8">
+          <div className="border-t border-paper/40 pt-6 text-xs text-ink/50">
+            <p className="font-serif-ko text-ink/70 mb-1">동네골목 GOLMOK. — 강서구 염창동 파일럿 (v1 MVP)</p>
+            <p>50개 가게는 데모용 목업 데이터입니다. 실제 가게 모집은 v2에서.</p>
+            <p className="mt-1">결제 메타데이터는 v1 표시용 — 실제 선결제 통합은 v2부터.</p>
+          </div>
+        </footer>
+      );
+    }
+
+    // -----------------------------------------
+    // App — 루트 컴포넌트 + 데이터 fetch + 상태 관리
+    // -----------------------------------------
+
+    function App() {
+      const [shops, setShops] = useState([]);
+      const [neighborhood, setNeighborhood] = useState(null);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+
+      const [filter, setFilter] = useState('all'); // all | resident | mobile
+      const [category, setCategory] = useState(null);
+      const [selectedShop, setSelectedShop] = useState(null);
+      const [aiLoading, setAiLoading] = useState(false);
+
+      // 데이터 로드
+      useEffect(() => {
+        Promise.all([
+          fetch('./data/shops.json').then((r) => r.json()),
+          fetch('./data/neighborhoods.json').then((r) => r.json())
+        ])
+          .then(([shopsData, nbData]) => {
+            setShops(shopsData.shops || []);
+            const cur = (nbData.neighborhoods || []).find((n) => n.id === nbData.current);
+            setNeighborhood(cur || null);
+            setLoading(false);
+          })
+          .catch((e) => {
+            console.error(e);
+            setError('데이터 로드 실패. 로컬 파일이라면 npx serve . 로 띄워주세요.');
+            setLoading(false);
+          });
+      }, []);
+
+      // 필터링된 가게 목록
+      const filteredShops = useMemo(() => {
+        return shops.filter((s) => {
+          if (filter === 'resident' && !isResident(s.type)) return false;
+          if (filter === 'mobile' && !isMobile(s.type)) return false;
+          if (category && s.category !== category) return false;
+          return true;
+        });
+      }, [shops, filter, category]);
+
+      // 카테고리 목록 (현재 필터 기준)
+      const categoryList = useMemo(() => {
+        const filtered = shops.filter((s) => {
+          if (filter === 'resident' && !isResident(s.type)) return false;
+          if (filter === 'mobile' && !isMobile(s.type)) return false;
+          return true;
+        });
+        return Array.from(new Set(filtered.map((s) => s.category))).sort();
+      }, [shops, filter]);
+
+      // Phase 1 더미 컨시어지 핸들러 — Phase 3에서 /api/ai/concierge로 교체
+      const handleAsk = useCallback((q) => {
+        setAiLoading(true);
+        setTimeout(() => {
+          alert(
+            `[Phase 1 placeholder]\n\n질문: "${q}"\n\nAI 컨시어지는 Phase 3에서 Claude API로 연결됩니다.\n현재는 입력만 가능한 상태입니다.`
+          );
+          setAiLoading(false);
+        }, 250);
+      }, []);
+
+      // Phase 1 더미 환영 메시지 (Phase 3에서 AI 응답으로 교체)
+      const todayMsg = neighborhood
+        ? `오늘 ${neighborhood.name}에는 ${shops.length}개 가게가 등록되어 있어요. 정착형도 메이커도 트럭도 다 모였습니다.`
+        : '동네 데이터를 불러오는 중…';
+
+      return (
+        <div className="min-h-screen">
+          <Header neighborhoodName={neighborhood?.name || '염창동'} />
+          <main>
+            <ConciergeBar onAsk={handleAsk} isLoading={aiLoading} />
+            <TodayLine message={todayMsg} loading={loading} />
+
+            {error && (
+              <div className="max-w-5xl mx-auto px-4 mt-6">
+                <div className="bg-red-clay/10 border border-red-clay/40 text-red-clay rounded-xl px-4 py-3 text-sm">
+                  ⚠️ {error}
+                </div>
+              </div>
+            )}
+
+            <FilterBar
+              filter={filter}
+              onChange={(v) => { setFilter(v); setCategory(null); }}
+              categoryList={categoryList}
+              currentCategory={category}
+              onCategory={setCategory}
+            />
+
+            <section className="max-w-5xl mx-auto px-4 mt-4 mb-10">
+              <div className="flex items-baseline justify-between mb-3">
+                <h2 className="font-serif-ko text-lg sm:text-xl text-ink">
+                  우리 동네 가게
+                </h2>
+                <span className="text-xs text-ink/50">{filteredShops.length}곳</span>
+              </div>
+
+              {loading ? (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div key={i} className="bg-cream rounded-2xl h-56 animate-pulse border border-paper/20" />
+                  ))}
+                </div>
+              ) : filteredShops.length === 0 ? (
+                <p className="text-ink/60 text-sm py-12 text-center">
+                  조건에 맞는 가게가 없어요. 필터를 바꿔보세요.
+                </p>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  {filteredShops.map((s) => (
+                    <ShopCard key={s.id} shop={s} onClick={setSelectedShop} />
+                  ))}
+                </div>
+              )}
+            </section>
+          </main>
+
+          <Footer />
+
+          {selectedShop && (
+            <ShopDetailModal shop={selectedShop} onClose={() => setSelectedShop(null)} />
+          )}
+        </div>
+      );
+    }
+
+    // -----------------------------------------
+    // Rendering
+    // -----------------------------------------
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

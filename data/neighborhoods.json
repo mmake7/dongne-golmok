@@ -1,0 +1,26 @@
+{
+  "current": "yeomchang",
+  "neighborhoods": [
+    {
+      "id": "yeomchang",
+      "name": "염창동",
+      "district": "강서구",
+      "stations": ["염창역", "양천향교역"],
+      "active": true,
+      "shop_count": 50,
+      "categories": [
+        { "key": "food", "label": "동네 음식점", "shop_ids_range": "g001-g015" },
+        { "key": "service", "label": "의류·생활 서비스", "shop_ids_range": "g016-g023" },
+        { "key": "maker", "label": "1인 메이커·공방", "shop_ids_range": "g024-g030" },
+        { "key": "edu", "label": "학원·동네 서비스", "shop_ids_range": "g031-g035" },
+        { "key": "fresh", "label": "농수산·정육", "shop_ids_range": "g036-g040" },
+        { "key": "mobile_regular", "label": "이동형 (정기)", "shop_ids_range": "g041-g046" },
+        { "key": "mobile_irregular", "label": "이동형 (가끔)", "shop_ids_range": "g047-g050" }
+      ]
+    }
+  ],
+  "future": [
+    { "id": "gayang", "name": "가양동", "district": "강서구", "active": false },
+    { "id": "deungchon", "name": "등촌동", "district": "강서구", "active": false }
+  ]
+}

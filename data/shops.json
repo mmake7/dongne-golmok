@@ -1,0 +1,913 @@
+{
+  "shops": [
+    {
+      "id": "g001",
+      "name": "햇살떡",
+      "owner_nick": "떡할매",
+      "type": "정착형",
+      "category": "떡·전통과자",
+      "location": { "address": "강서구 염창동 강서로 안쪽 골목", "near": "염창역 5분" },
+      "schedule": { "weekday": "06:00-19:00", "saturday": "06:00-15:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 가래떡 아침 6시에 다 뽑았어요. 김 모락모락",
+        "쑥인절미 한 솥 새로. 봄 쑥이라 향이 진해요",
+        "내일 시루떡 미리 주문 받아요. 제사용도 가능",
+        "오늘 절편 색이 예뻐요. 손주들 간식으로",
+        "(결제) 카드 안 받아요. 동네골목 선결제는 v2부터 가능해요."
+      ],
+      "tags": ["떡", "가래떡", "인절미", "쑥떡", "시루떡", "절편", "노포"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "할머니 30년 노포. 카드 단말기 없음."
+    },
+    {
+      "id": "g002",
+      "name": "365분식",
+      "owner_nick": "분식이모",
+      "type": "정착형",
+      "category": "분식",
+      "location": { "address": "염창동 우장산로 중간", "near": "염창중학교 앞" },
+      "schedule": { "weekday": "11:00-24:00", "saturday": "11:00-24:00", "sunday": "11:00-24:00", "note": "일요일도 영업" },
+      "posts": [
+        "오늘 떡볶이 솥 12시에 새로 끓였어요",
+        "튀김 오징어 들어왔어요. 4시까지",
+        "야식 김밥 24시까지 가능합니다",
+        "토요일 단체 도시락 예약 받아요"
+      ],
+      "tags": ["떡볶이", "튀김", "김밥", "라면", "야식", "새벽"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g003",
+      "name": "한우정육",
+      "owner_nick": "박정민",
+      "type": "정착형",
+      "category": "정육",
+      "location": { "address": "강서로 길가", "near": "염창역 도보 7분" },
+      "schedule": { "weekday": "09:00-21:00", "saturday": "09:00-20:00", "sunday": "09:00-20:00", "note": null },
+      "posts": [
+        "오늘 한우 등심 들어왔어요. A++ 등급",
+        "삼겹살 1+1 행사 오늘만",
+        "내일 갈비 양념 미리 주문 가능",
+        "주말 모임용 고기 세트 준비 가능"
+      ],
+      "tags": ["한우", "한돈", "등심", "삼겹살", "갈비", "양념", "모임"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g004",
+      "name": "오븐속 토끼",
+      "owner_nick": "토끼사장",
+      "type": "정착형",
+      "category": "베이커리·디저트",
+      "location": { "address": "염창동 등촌로 가는 길", "near": null },
+      "schedule": { "weekday": "08:00-22:00", "saturday": "08:00-22:00", "sunday": "08:00-22:00", "note": null },
+      "posts": [
+        "오늘 호두파이 새로 구웠어요. 6시 한정",
+        "수제 식빵 매일 오전 10시 첫 빵 나옵니다",
+        "딸기 시즌 끝나가요. 딸기케이크 주말까지",
+        "내일 마카롱 종일 50% 할인"
+      ],
+      "tags": ["빵", "식빵", "케이크", "마카롱", "호두파이", "딸기", "디저트"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g005",
+      "name": "엄마손맛",
+      "owner_nick": "김영자",
+      "type": "정착형",
+      "category": "한식·반찬",
+      "location": { "address": "양천향교역 도보 3분", "near": "양천향교역" },
+      "schedule": { "weekday": "11:00-21:00", "saturday": "휴무", "sunday": "휴무", "note": "주말 휴무" },
+      "posts": [
+        "오늘 고등어조림 들어왔어요",
+        "백반 메뉴: 김치찌개, 된장찌개, 부대찌개",
+        "반찬 따로 포장 가능합니다",
+        "도시락 예약 받습니다 (전날까지)"
+      ],
+      "tags": ["백반", "한식", "김치찌개", "도시락", "반찬", "가정식"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g006",
+      "name": "오늘김밥",
+      "owner_nick": "김밥아저씨",
+      "type": "정착형",
+      "category": "김밥·도시락",
+      "location": { "address": "염창역 1번 출구 앞", "near": "염창역" },
+      "schedule": { "weekday": "06:00-22:00", "saturday": "06:00-16:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 김밥 재료 신선해요. 아침 6시부터",
+        "참치김밥 오늘 한정 1+1",
+        "도시락 단체 주문 어제까지 예약",
+        "쌀 새로 받았어요. 밥 맛이 달라요",
+        "(결제) 단말기 없어 현금 받아요. 동네골목 선결제는 v2부터요."
+      ],
+      "tags": ["김밥", "도시락", "참치", "야채", "출근"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "단말기 없음."
+    },
+    {
+      "id": "g007",
+      "name": "길모퉁이",
+      "owner_nick": "카페지기",
+      "type": "정착형",
+      "category": "카페",
+      "location": { "address": "염창동 우장산로 골목 안", "near": null },
+      "schedule": { "weekday": "08:00-23:00", "saturday": "08:00-23:00", "sunday": "08:00-23:00", "note": null },
+      "posts": [
+        "오늘 새 원두 들어왔어요. 에티오피아 예가체프",
+        "수제 쿠키 오후 3시 굽습니다",
+        "비 오는 날 더치커피 추천드려요",
+        "토요일 오후 라이브 음악 있어요"
+      ],
+      "tags": ["커피", "원두", "디저트", "쿠키", "더치커피", "동네카페"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g008",
+      "name": "짜장아저씨",
+      "owner_nick": "왕사장",
+      "type": "정착형",
+      "category": "중식",
+      "location": { "address": "염창역 2번 출구 도보 5분", "near": "염창역" },
+      "schedule": { "weekday": "11:00-22:00", "saturday": "11:00-22:00", "sunday": "11:00-22:00", "note": null },
+      "posts": [
+        "오늘 짜장면 양 많이 드려요",
+        "탕수육 오늘만 30% 할인",
+        "단체 코스 예약 받습니다",
+        "배달 가능 1km 이내"
+      ],
+      "tags": ["짜장면", "짬뽕", "탕수육", "중식", "배달"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g009",
+      "name": "작은스시",
+      "owner_nick": "서이사",
+      "type": "정착형",
+      "category": "일식",
+      "location": { "address": "강서로 사거리 인근", "near": null },
+      "schedule": { "weekday": "11:30-22:00", "saturday": "11:30-22:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 활어 광어 들어왔어요",
+        "스시 오마카세 예약제 운영",
+        "사케 신상품 입고. 이번 주 한정",
+        "런치 세트 메뉴 추천드려요"
+      ],
+      "tags": ["스시", "사시미", "일식", "오마카세", "사케"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g010",
+      "name": "바삭치킨",
+      "owner_nick": "닭사장",
+      "type": "정착형",
+      "category": "치킨",
+      "location": { "address": "염창동 우장산로 길가", "near": null },
+      "schedule": { "weekday": "16:00-02:00", "saturday": "16:00-02:00", "sunday": "16:00-02:00", "note": "새벽 2시까지" },
+      "posts": [
+        "오늘 닭 신선해요",
+        "야식 시간 11시 이후 5천원 할인",
+        "주말 단체 주문 미리 예약",
+        "맥주 신상 입고. 치맥 콤보"
+      ],
+      "tags": ["치킨", "야식", "치맥", "후라이드", "양념"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g011",
+      "name": "엄마반찬",
+      "owner_nick": "반찬이모",
+      "type": "정착형",
+      "category": "반찬",
+      "location": { "address": "염창중학교 인근 골목", "near": "염창중학교" },
+      "schedule": { "weekday": "09:00-20:00", "saturday": "09:00-18:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 멸치볶음 갓 만들었어요",
+        "장아찌 종류 다양하게 들어왔어요",
+        "주말 반찬 세트 예약 받습니다",
+        "김치 직접 담갔어요. 한 통 9천원"
+      ],
+      "tags": ["반찬", "멸치", "장아찌", "김치", "가정식"],
+      "payment_options": ["cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g012",
+      "name": "학생떡볶이",
+      "owner_nick": "떡볶이언니",
+      "type": "정착형",
+      "category": "분식·떡볶이 전문",
+      "location": { "address": "염창중학교 정문 앞", "near": "염창중학교" },
+      "schedule": { "weekday": "14:00-20:00", "saturday": "12:00-20:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 떡 새로 받았어요. 쫄깃해요",
+        "튀김 종류 많이 했어요",
+        "비 오는 날 어묵국물 무료",
+        "쿠폰 10번 모으면 1번 무료",
+        "(결제) 현금 위주예요. 동네골목 선결제는 v2부터 가능해요."
+      ],
+      "tags": ["떡볶이", "튀김", "어묵", "학생", "분식"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "현금 위주."
+    },
+    {
+      "id": "g013",
+      "name": "오늘저녁",
+      "owner_nick": "호프사장",
+      "type": "정착형",
+      "category": "호프·안주",
+      "location": { "address": "염창역 2번 출구 골목", "near": "염창역" },
+      "schedule": { "weekday": "17:00-02:00", "saturday": "17:00-02:00", "sunday": "17:00-02:00", "note": "새벽 2시까지" },
+      "posts": [
+        "오늘 골뱅이 신선해요",
+        "수제 안주 노가리 신메뉴",
+        "단체 회식 예약 받아요",
+        "수제 맥주 새로 들어왔어요"
+      ],
+      "tags": ["호프", "맥주", "안주", "골뱅이", "노가리", "회식"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g014",
+      "name": "달콤한오후",
+      "owner_nick": "달지기",
+      "type": "정착형",
+      "category": "디저트·홈베이킹",
+      "location": { "address": "염창동 골목 작은 가게", "near": null },
+      "schedule": { "weekday": "13:00-20:00", "saturday": "13:00-20:00", "sunday": "휴무", "note": "월요일도 휴무 (화-토 영업)" },
+      "posts": [
+        "오늘 티라미수 6개 한정",
+        "수제 푸딩 오후 3시부터",
+        "딸기 시즌 마지막 주. 딸기케이크 예약",
+        "선물 포장 가능합니다"
+      ],
+      "tags": ["디저트", "티라미수", "푸딩", "케이크", "선물"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g015",
+      "name": "점심도시락",
+      "owner_nick": "도시락쌤",
+      "type": "정착형",
+      "category": "도시락",
+      "location": { "address": "염창역 1번 출구 도보 2분", "near": "염창역" },
+      "schedule": { "weekday": "07:00-14:00", "saturday": "휴무", "sunday": "휴무", "note": "주말 휴무" },
+      "posts": [
+        "오늘 메뉴: 제육, 닭갈비, 돈까스",
+        "단체 도시락 전날 예약",
+        "건강식 도시락 추가했어요",
+        "이번 주 점심 정기 배달 가능"
+      ],
+      "tags": ["도시락", "점심", "회사", "단체", "정기배달"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g016",
+      "name": "수선의손",
+      "owner_nick": "박순례",
+      "type": "정착형",
+      "category": "양장·수선",
+      "location": { "address": "염창동 우장산로 골목", "near": null },
+      "schedule": { "weekday": "10:00-19:00", "saturday": "10:00-16:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 수선 받습니다. 빠르면 당일",
+        "한복 짓기 가능. 미리 상담",
+        "결혼식 예복 수선 시즌",
+        "정장 통 줄이기 1만원"
+      ],
+      "tags": ["수선", "양장", "한복", "정장", "예복"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g017",
+      "name": "깨끗하게",
+      "owner_nick": "세탁아저씨",
+      "type": "정착형",
+      "category": "세탁",
+      "location": { "address": "염창동 강서로 길가", "near": null },
+      "schedule": { "weekday": "07:00-21:00", "saturday": "09:00-18:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 받는 옷 내일 오후 가능",
+        "양털 코트 세탁 시즌 끝나가요",
+        "이불 세탁 받아요. 큰 사이즈도 OK",
+        "셔츠 다림질 1천원"
+      ],
+      "tags": ["세탁", "드라이", "이불", "양털", "다림질"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g018",
+      "name": "구두장이",
+      "owner_nick": "구두마스터",
+      "type": "정착형",
+      "category": "구두 수선",
+      "location": { "address": "염창역 1번 출구 인근 작은 부스", "near": "염창역" },
+      "schedule": { "weekday": "09:00-19:00", "saturday": "09:00-16:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 굽 갈이 가능",
+        "구두 광택 5천원",
+        "운동화 솔 갈이도 받아요",
+        "가죽 가방 수선 가능"
+      ],
+      "tags": ["구두", "수선", "굽", "광택", "가죽"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g019",
+      "name": "24시열쇠",
+      "owner_nick": "열쇠아저씨",
+      "type": "정착형",
+      "category": "열쇠·도장",
+      "location": { "address": "염창역 2번 출구 모퉁이", "near": "염창역" },
+      "schedule": { "weekday": "09:00-22:00", "saturday": "09:00-22:00", "sunday": "09:00-22:00", "note": "긴급은 24시" },
+      "posts": [
+        "오늘 도장 새로 팝니다",
+        "디지털 도어록 설치 가능",
+        "긴급 출장 1만원부터",
+        "자동차 키 복사 가능"
+      ],
+      "tags": ["열쇠", "도장", "도어록", "긴급", "출장"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": "긴급 24시 출장 가능."
+    },
+    {
+      "id": "g020",
+      "name": "작은옷장",
+      "owner_nick": "옷언니",
+      "type": "정착형",
+      "category": "의류",
+      "location": { "address": "염창동 우장산로 골목", "near": null },
+      "schedule": { "weekday": "11:00-21:00", "saturday": "11:00-21:00", "sunday": "11:00-21:00", "note": "화요일 휴무" },
+      "posts": [
+        "오늘 신상 원피스 입고했어요",
+        "이월 상품 50% 세일 중",
+        "주말 가벼운 자켓 추천",
+        "사이즈 교환 7일 이내 가능"
+      ],
+      "tags": ["옷", "원피스", "자켓", "세일", "신상"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g021",
+      "name": "발편한가게",
+      "owner_nick": "신발사장",
+      "type": "정착형",
+      "category": "신발",
+      "location": { "address": "염창역 1번 출구 도보 3분", "near": "염창역" },
+      "schedule": { "weekday": "10:00-21:00", "saturday": "10:00-21:00", "sunday": "12:00-20:00", "note": null },
+      "posts": [
+        "오늘 운동화 신상 들어왔어요",
+        "구두 250-280까지 다양 사이즈",
+        "어르신 편한 신발 추천드려요",
+        "장마철 방수 신발 입고"
+      ],
+      "tags": ["신발", "운동화", "구두", "어르신", "방수"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g022",
+      "name": "가방닥터",
+      "owner_nick": "가방마스터",
+      "type": "정착형",
+      "category": "가방·잡화 수선",
+      "location": { "address": "염창동 골목 작은 부스", "near": null },
+      "schedule": { "weekday": "10:00-19:00", "saturday": "10:00-16:00", "sunday": "휴무", "note": "예약제 운영" },
+      "posts": [
+        "오늘 명품 가방 클리닝 받습니다",
+        "지퍼 교체 5천원부터",
+        "가죽 가방 컬러 복원 가능",
+        "예약제 운영 (전화 주세요)"
+      ],
+      "tags": ["가방", "수선", "클리닝", "지퍼", "가죽"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g023",
+      "name": "폭신이불",
+      "owner_nick": "이불할머니",
+      "type": "정착형",
+      "category": "침구·이불",
+      "location": { "address": "염창동 우장산로 안쪽", "near": null },
+      "schedule": { "weekday": "10:00-20:00", "saturday": "10:00-20:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 솜이불 새로 들어왔어요",
+        "여름 인견 시즌 시작",
+        "베개 종류 다양해요",
+        "주문 제작 가능합니다"
+      ],
+      "tags": ["이불", "솜이불", "인견", "베개", "침구"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g024",
+      "name": "만드는방",
+      "owner_nick": "메이커형",
+      "type": "1인메이커",
+      "category": "3D프린팅·생활용품 제작",
+      "location": { "address": "염창동 등촌로 작은 작업실", "near": null },
+      "schedule": { "weekday": "13:00-20:00", "saturday": "13:00-20:00", "sunday": "휴무", "note": "월요일 휴무, 예약제" },
+      "posts": [
+        "오늘 작업한 것: 수납함, 화분 받침대",
+        "3D 모델 의뢰 받습니다",
+        "주문 제작 1주 소요",
+        "체험 클래스 주말 운영"
+      ],
+      "tags": ["3D프린터", "메이커", "수납", "화분", "클래스"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g025",
+      "name": "흙냄새",
+      "owner_nick": "도자작가",
+      "type": "1인메이커",
+      "category": "도자기·공예",
+      "location": { "address": "염창동 골목 작은 공방", "near": null },
+      "schedule": { "weekday": "14:00-21:00", "saturday": "11:00-18:00", "sunday": "휴무", "note": "월요일 휴무 (화-토 영업)" },
+      "posts": [
+        "오늘 가마 열었어요. 컵 시리즈 새로",
+        "도자기 클래스 주말반 모집",
+        "원데이 체험 4만원",
+        "주문 제작 (선물용) 가능",
+        "(결제) 단말기 없어요. 현금이나 계좌이체로요. 동네골목 선결제는 v2부터요."
+      ],
+      "tags": ["도자기", "컵", "그릇", "클래스", "체험", "선물"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": "단말기 없음."
+    },
+    {
+      "id": "g026",
+      "name": "불꽃향기",
+      "owner_nick": "캔들작가",
+      "type": "1인메이커",
+      "category": "수제 캔들",
+      "location": { "address": "염창동 우장산로 작은 공방", "near": null },
+      "schedule": { "weekday": "13:00-20:00", "saturday": "13:00-20:00", "sunday": "휴무", "note": "수-토만 영업" },
+      "posts": [
+        "오늘 라벤더 캔들 새로 만들었어요",
+        "체험 클래스 주말 11시",
+        "선물 포장 가능합니다",
+        "이번 주 향초 신상 4종"
+      ],
+      "tags": ["캔들", "향초", "라벤더", "체험", "선물"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g027",
+      "name": "수제비누집",
+      "owner_nick": "비누작가",
+      "type": "1인메이커",
+      "category": "수제 비누",
+      "location": { "address": "염창동 작은 공방", "near": null },
+      "schedule": { "weekday": "예약제", "saturday": "예약제", "sunday": "예약제", "note": "예약제 (인스타 DM)" },
+      "posts": [
+        "오늘 천연비누 5종 작업 끝",
+        "어린이용 비누 입고",
+        "선물 세트 주문 가능",
+        "체험 클래스 (3인 이상)"
+      ],
+      "tags": ["비누", "수제", "천연", "어린이", "선물"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": "예약제."
+    },
+    {
+      "id": "g028",
+      "name": "예복지기",
+      "owner_nick": "한복작가",
+      "type": "1인메이커",
+      "category": "한복 짓기·대여",
+      "location": { "address": "양천향교역 인근", "near": "양천향교역" },
+      "schedule": { "weekday": "10:00-19:00", "saturday": "예약제", "sunday": "예약제", "note": "주말 예약제" },
+      "posts": [
+        "결혼식 한복 시즌. 예약 빠르게",
+        "어린이 돌복 대여 가능",
+        "추석 한복 미리 준비하세요",
+        "사이즈 측정 무료"
+      ],
+      "tags": ["한복", "결혼식", "돌복", "추석", "대여"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g029",
+      "name": "한지방",
+      "owner_nick": "한지선생",
+      "type": "1인메이커",
+      "category": "한지·전통공예",
+      "location": { "address": "염창동 작은 공방", "near": null },
+      "schedule": { "weekday": "14:00-19:00", "saturday": "14:00-19:00", "sunday": "휴무", "note": "월요일 휴무 (화-토 영업)" },
+      "posts": [
+        "오늘 한지 등 작업했어요",
+        "원데이 클래스 토요일 11시",
+        "주문 제작 (선물·인테리어)",
+        "어린이 체험 환영"
+      ],
+      "tags": ["한지", "등", "클래스", "어린이", "인테리어"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g030",
+      "name": "가죽사랑",
+      "owner_nick": "가죽작가",
+      "type": "1인메이커",
+      "category": "가죽 공예",
+      "location": { "address": "염창동 등촌로 작업실", "near": null },
+      "schedule": { "weekday": "13:00-20:00", "saturday": "13:00-20:00", "sunday": "휴무", "note": "수-토만 영업" },
+      "posts": [
+        "오늘 만든 것: 카드지갑, 키링",
+        "주문 제작 받습니다 (2주)",
+        "이름 각인 무료",
+        "체험 클래스 (지갑 만들기)"
+      ],
+      "tags": ["가죽", "지갑", "키링", "각인", "클래스"],
+      "payment_options": ["cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g031",
+      "name": "작은화실",
+      "owner_nick": "미술선생",
+      "type": "정착형",
+      "category": "미술학원·취미",
+      "location": { "address": "염창동 강서로 빌딩 3층", "near": null },
+      "schedule": { "weekday": "14:00-21:00", "saturday": "14:00-21:00", "sunday": "휴무", "note": "월요일 휴무 (화-토 영업)" },
+      "posts": [
+        "어린이 미술 신학기 모집",
+        "성인 취미반 (저녁) 모집",
+        "원데이 드로잉 클래스",
+        "전시 작품 판매 (10% 기부)"
+      ],
+      "tags": ["미술", "어린이", "취미", "드로잉", "클래스"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g032",
+      "name": "열정태권",
+      "owner_nick": "관장님",
+      "type": "정착형",
+      "category": "태권도",
+      "location": { "address": "염창동 우장산로 빌딩 2층", "near": null },
+      "schedule": { "weekday": "14:00-21:00", "saturday": "09:00-13:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "신학기 어린이반 등록 시즌",
+        "성인 운동반 화/목 저녁",
+        "태권 시범단 모집 (초3 이상)",
+        "체험 1회 무료"
+      ],
+      "tags": ["태권도", "어린이", "운동", "시범", "체험"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g033",
+      "name": "우리집",
+      "owner_nick": "공인중개사 김씨",
+      "type": "정착형",
+      "category": "부동산",
+      "location": { "address": "염창역 1번 출구 모퉁이", "near": "염창역" },
+      "schedule": { "weekday": "09:00-20:00", "saturday": "09:00-20:00", "sunday": "09:00-20:00", "note": null },
+      "posts": [
+        "오늘 신규 매물: 염창동 빌라",
+        "전세 매물 다수 있습니다",
+        "이주 상담 환영",
+        "공실 정보 매주 업데이트"
+      ],
+      "tags": ["부동산", "매매", "전세", "빌라", "아파트"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g034",
+      "name": "머리방",
+      "owner_nick": "미용사 이씨",
+      "type": "정착형",
+      "category": "미용실",
+      "location": { "address": "염창동 골목", "near": null },
+      "schedule": { "weekday": "10:00-21:00", "saturday": "10:00-21:00", "sunday": "11:00-19:00", "note": null },
+      "posts": [
+        "오늘 예약 가능 시간 있어요",
+        "신상 펌 메뉴 도입",
+        "어르신 컷 만원",
+        "결혼식 메이크업 예약 받아요"
+      ],
+      "tags": ["미용실", "펌", "컷", "메이크업", "어르신"],
+      "payment_options": ["card", "cash", "transfer", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g035",
+      "name": "작은서가",
+      "owner_nick": "책지기",
+      "type": "정착형",
+      "category": "책방·동네서점",
+      "location": { "address": "염창동 우장산로 안쪽", "near": null },
+      "schedule": { "weekday": "12:00-21:00", "saturday": "12:00-21:00", "sunday": "13:00-19:00", "note": "월요일 휴무" },
+      "posts": [
+        "오늘 신간 입고: 동네 에세이",
+        "독립출판 도서 다수",
+        "북클럽 모집 (월 1회 토요일)",
+        "어린이 그림책 코너 확장"
+      ],
+      "tags": ["책", "서점", "신간", "독립출판", "북클럽"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g036",
+      "name": "햇과일",
+      "owner_nick": "과일아저씨",
+      "type": "정착형",
+      "category": "과일",
+      "location": { "address": "염창동 강서로 길가", "near": null },
+      "schedule": { "weekday": "08:00-22:00", "saturday": "08:00-22:00", "sunday": "08:00-22:00", "note": null },
+      "posts": [
+        "오늘 딸기 입고. 단맛 진해요",
+        "수박 시즌 시작",
+        "사과 제철. 부사 한 박스 2만원",
+        "선물 세트 주문 받아요"
+      ],
+      "tags": ["과일", "딸기", "수박", "사과", "선물"],
+      "payment_options": ["card", "cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g037",
+      "name": "바다맛",
+      "owner_nick": "생선이모",
+      "type": "정착형",
+      "category": "수산물",
+      "location": { "address": "염창동 우장산로 시장 골목", "near": null },
+      "schedule": { "weekday": "06:00-19:00", "saturday": "06:00-16:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 갈치 신선해요",
+        "고등어 한 손 5천원",
+        "오징어 시즌 시작",
+        "회 떠드립니다 (주문)",
+        "(결제) 시장 안 가게라 현금 받아요. 동네골목 선결제는 v2부터요."
+      ],
+      "tags": ["생선", "갈치", "고등어", "오징어", "회"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "시장 안 가게."
+    },
+    {
+      "id": "g038",
+      "name": "반건조",
+      "owner_nick": "어물전이모",
+      "type": "정착형",
+      "category": "반건조 어물전",
+      "location": { "address": "양천향교역 시장 안", "near": "양천향교역" },
+      "schedule": { "weekday": "07:00-18:00", "saturday": "07:00-15:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 굴비 새로 손질했어요",
+        "건오징어 한 묶음 만원",
+        "명절용 굴비 세트 예약",
+        "쥐포 직접 만들어요"
+      ],
+      "tags": ["굴비", "건오징어", "쥐포", "명절", "반건조"],
+      "payment_options": ["cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g039",
+      "name": "토종닭",
+      "owner_nick": "닭집사장",
+      "type": "정착형",
+      "category": "가금류",
+      "location": { "address": "염창동 시장 안 작은 가게", "near": null },
+      "schedule": { "weekday": "08:00-19:00", "saturday": "08:00-16:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 토종닭 좋아요",
+        "삼계탕용 손질 가능",
+        "달걀 새로 들어왔어요",
+        "오리 주문 받아요 (3일 전)"
+      ],
+      "tags": ["닭", "토종닭", "삼계탕", "달걀", "오리"],
+      "payment_options": ["cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g040",
+      "name": "오늘채소",
+      "owner_nick": "채소이모",
+      "type": "정착형",
+      "category": "채소·나물",
+      "location": { "address": "염창동 우장산로 시장 골목", "near": null },
+      "schedule": { "weekday": "06:00-20:00", "saturday": "06:00-17:00", "sunday": "휴무", "note": null },
+      "posts": [
+        "오늘 봄나물 종류 많아요. 두릅·취나물·달래",
+        "쪽파 한 단 천원",
+        "버섯 종류 다양해요",
+        "샐러드용 채소 패키지",
+        "(결제) 현금 받아요. 동네골목 선결제는 v2부터 가능해요."
+      ],
+      "tags": ["채소", "봄나물", "두릅", "쪽파", "버섯", "샐러드"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "현금 위주."
+    },
+    {
+      "id": "g041",
+      "name": "화요순대",
+      "owner_nick": "순대아저씨",
+      "type": "이동형(정기)",
+      "category": "순대·간식",
+      "location": { "address": "매주 화요일 염창역 1번 출구", "near": "염창역 1번 출구" },
+      "schedule": { "weekday": "화 17:00-21:00", "saturday": "X", "sunday": "X", "note": "비 오면 다음 주" },
+      "posts": [
+        "오늘 와있어요. 1번 출구 쪽",
+        "오늘 순대 좋아요. 머리고기도",
+        "다음 주는 못 와요. 비 예보",
+        "단골 주민 분들께 감사",
+        "(결제) 트럭이라 단말기 없어요. 동네골목 선결제는 v2부터요."
+      ],
+      "tags": ["순대", "머리고기", "화요일", "트럭", "야식"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "트럭. 단말기 없음."
+    },
+    {
+      "id": "g042",
+      "name": "발끝세상",
+      "owner_nick": "양말사장",
+      "type": "이동형(정기)",
+      "category": "양말·잡화",
+      "location": { "address": "매주 목요일 가양역 4번 출구", "near": "가양역 4번 출구" },
+      "schedule": { "weekday": "목 17:00-21:00", "saturday": "X", "sunday": "X", "note": null },
+      "posts": [
+        "오늘 와있어요. 가양역 출구",
+        "어린이 양말 신상 입고",
+        "장마철 방수 양말 한정",
+        "3켤레 만원 패키지",
+        "(결제) 양말차라 카드 안 돼요. 동네골목 선결제는 v2부터요."
+      ],
+      "tags": ["양말", "어린이", "방수", "목요일", "트럭"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "트럭. 카드 안 됨."
+    },
+    {
+      "id": "g043",
+      "name": "햇과일트럭",
+      "owner_nick": "과일아저씨2호",
+      "type": "이동형(정기)",
+      "category": "과일·제철",
+      "location": { "address": "토요일 등촌역 인근, 일요일 가양역", "near": "등촌역/가양역" },
+      "schedule": { "weekday": "X", "saturday": "09:00-13:00", "sunday": "09:00-13:00", "note": "토 등촌역 / 일 가양역" },
+      "posts": [
+        "이번 주 토요일 등촌역에서 만나요",
+        "딸기 제철 끝나가요. 마지막 주",
+        "수박 첫 입고",
+        "사과 한 박스 만 오천원"
+      ],
+      "tags": ["과일", "트럭", "토요일", "일요일", "딸기", "수박"],
+      "payment_options": ["cash", "prepay"],
+      "notes": null
+    },
+    {
+      "id": "g044",
+      "name": "호떡지기",
+      "owner_nick": "호떡사장",
+      "type": "이동형(정기)",
+      "category": "호떡·간식",
+      "location": { "address": "매주 토요일 염창역 2번 출구", "near": "염창역 2번 출구" },
+      "schedule": { "weekday": "X", "saturday": "14:00-20:00", "sunday": "X", "note": "겨울 시즌만" },
+      "posts": [
+        "오늘 와있어요",
+        "이번 주가 시즌 마지막",
+        "씨앗 호떡 추천드려요",
+        "다음 시즌은 11월부터"
+      ],
+      "tags": ["호떡", "토요일", "겨울", "씨앗", "시즌"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "겨울 시즌 운영."
+    },
+    {
+      "id": "g045",
+      "name": "텃밭트럭",
+      "owner_nick": "야채할아버지",
+      "type": "이동형(정기)",
+      "category": "야채·나물",
+      "location": { "address": "매주 목요일 염창동 아파트 단지 순회", "near": "염창동 아파트 단지" },
+      "schedule": { "weekday": "목 06:00-12:00", "saturday": "X", "sunday": "X", "note": "오전만 운영" },
+      "posts": [
+        "오늘 일찍 와있어요",
+        "직접 키운 채소 가져왔어요",
+        "다음 주는 늦여름 채소 시작",
+        "주문 받아두면 배달도 가능",
+        "(결제) 직거래 위주예요. 현금 또는 계좌이체. 동네골목 선결제는 v2부터요."
+      ],
+      "tags": ["야채", "텃밭", "목요일", "트럭", "직거래"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "직거래 위주."
+    },
+    {
+      "id": "g046",
+      "name": "떨이왕",
+      "owner_nick": "떨이사장",
+      "type": "이동형(정기)",
+      "category": "의류·생활용품 떨이",
+      "location": { "address": "매월 첫째 주 토·일 강서구청 인근", "near": "강서구청" },
+      "schedule": { "weekday": "X", "saturday": "10:00-18:00", "sunday": "10:00-18:00", "note": "매월 첫째 주말만" },
+      "posts": [
+        "이번 주말 와요. 의류 다양해요",
+        "어린이 옷 다수 입고",
+        "신발 종류 늘렸어요",
+        "가격 흥정 환영"
+      ],
+      "tags": ["떨이", "의류", "어린이", "신발", "월간"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "월 1회만."
+    },
+    {
+      "id": "g047",
+      "name": "다마코치왕",
+      "owner_nick": "다마코치사장",
+      "type": "이동형(가끔)",
+      "category": "일본식 문어빵",
+      "location": { "address": "염창역 1번 출구 (불규칙)", "near": "염창역 1번 출구" },
+      "schedule": { "weekday": "비정기", "saturday": "비정기", "sunday": "비정기", "note": "와있는 날만 등록 글로 알림" },
+      "posts": [
+        "오늘 6시까지 와있어요",
+        "오늘 마지막. 다음 주 미정",
+        "신메뉴 매콤 다마코치 등장",
+        "단골 분 감사합니다"
+      ],
+      "tags": ["다마코치", "문어빵", "일본", "노점", "가끔"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "비정기."
+    },
+    {
+      "id": "g048",
+      "name": "홍게아저씨",
+      "owner_nick": "홍게아저씨",
+      "type": "이동형(가끔)",
+      "category": "홍게·해산물",
+      "location": { "address": "양천향교역 인근 (가끔 등장)", "near": "양천향교역" },
+      "schedule": { "weekday": "비정기", "saturday": "비정기", "sunday": "비정기", "note": "시즌만" },
+      "posts": [
+        "오늘 홍게 좋아요. 5시까지",
+        "이번 주 마지막. 시즌 끝",
+        "찜 가능. 즉석에서",
+        "예약 가능 (전화)"
+      ],
+      "tags": ["홍게", "해산물", "노점", "시즌", "찜"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "시즌 한정."
+    },
+    {
+      "id": "g049",
+      "name": "추억의튀김",
+      "owner_nick": "튀김할머니",
+      "type": "이동형(가끔)",
+      "category": "튀김·간식",
+      "location": { "address": "염창중학교 앞 (학교 끝나는 시간)", "near": "염창중학교" },
+      "schedule": { "weekday": "비정기", "saturday": "X", "sunday": "X", "note": "학기 중 가끔" },
+      "posts": [
+        "오늘 와있어요. 4시부터",
+        "오징어 튀김 신선해요",
+        "다음 주는 못 와요",
+        "옛날 떡볶이도 같이 해요"
+      ],
+      "tags": ["튀김", "학교앞", "학생", "떡볶이", "추억"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "학기 중 가끔."
+    },
+    {
+      "id": "g050",
+      "name": "붕어빵형제",
+      "owner_nick": "붕어빵형제",
+      "type": "이동형(가끔)",
+      "category": "붕어빵·겨울 간식",
+      "location": { "address": "염창역 출구 인근 (겨울 시즌)", "near": "염창역" },
+      "schedule": { "weekday": "비정기", "saturday": "비정기", "sunday": "비정기", "note": "11월~3월 시즌만" },
+      "posts": [
+        "오늘 와있어요. 1마리 천원",
+        "이번 주가 마지막. 시즌 끝",
+        "다음 시즌 11월",
+        "팥·슈크림 둘 다"
+      ],
+      "tags": ["붕어빵", "겨울", "팥", "슈크림", "시즌"],
+      "payment_options": ["cash", "prepay"],
+      "notes": "11월~3월만."
+    }
+  ]
+}
