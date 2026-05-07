@@ -460,7 +460,14 @@
       const [filter, setFilter] = useState('all'); // all | resident | mobile
       const [category, setCategory] = useState(null);
       const [selectedShop, setSelectedShop] = useState(null);
+
+      // Phase 3 — AI 컨시어지 상태
       const [aiLoading, setAiLoading] = useState(false);
+      const [aiAnswer, setAiAnswer] = useState(null);     // { answer, refs }
+      const [aiError, setAiError] = useState(null);
+      const [todayMsg, setTodayMsg] = useState(null);     // AI 환영 메시지
+      const [todayLoading, setTodayLoading] = useState(true);
+      const [todayRefs, setTodayRefs] = useState([]);     // 환영 메시지 참조 가게
 
       // 데이터 로드 — Phase 2: /api/shops 우선, 실패 시 정적 파일 fallback
       useEffect(() => {
@@ -496,6 +503,34 @@
           });
       }, []);
 
+      // 오늘의 동네 한 줄 — 데이터 로드 후 AI 호출 (1회만)
+      useEffect(() => {
+        if (loading || shops.length === 0) return;
+        let cancelled = false;
+        setTodayLoading(true);
+        fetch('/api/ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ initial: true })
+        })
+          .then((r) => r.ok ? r.json() : Promise.reject(r))
+          .then((data) => {
+            if (cancelled) return;
+            setTodayMsg(data.answer);
+            setTodayRefs(Array.isArray(data.referencedShops) ? data.referencedShops : []);
+            setTodayLoading(false);
+          })
+          .catch(() => {
+            if (cancelled) return;
+            // AI 호출 실패 시 정적 fallback (정적 모드 또는 API key 없음)
+            setTodayMsg(
+              `오늘 ${neighborhood?.name || '염창동'}에는 ${shops.length}개 가게가 등록되어 있어요. 정착형도 메이커도 트럭도 다 모였습니다. (AI 환영 메시지는 vercel dev + ANTHROPIC_API_KEY 시 활성화)`
+            );
+            setTodayLoading(false);
+          });
+        return () => { cancelled = true; };
+      }, [loading, shops.length, neighborhood]);
+
       // 필터링된 가게 목록
       const filteredShops = useMemo(() => {
         return shops.filter((s) => {
@@ -516,28 +551,90 @@
         return Array.from(new Set(filtered.map((s) => s.category))).sort();
       }, [shops, filter]);
 
-      // Phase 1 더미 컨시어지 핸들러 — Phase 3에서 /api/ai/concierge로 교체
-      const handleAsk = useCallback((q) => {
+      // Phase 3 — 실제 AI 컨시어지 호출
+      const handleAsk = useCallback(async (q) => {
         setAiLoading(true);
-        setTimeout(() => {
-          alert(
-            `[Phase 1 placeholder]\n\n질문: "${q}"\n\nAI 컨시어지는 Phase 3에서 Claude API로 연결됩니다.\n현재는 입력만 가능한 상태입니다.`
-          );
+        setAiError(null);
+        setAiAnswer(null);
+        try {
+          const r = await fetch('/api/ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: q })
+          });
+          const data = await r.json();
+          if (!r.ok) {
+            throw new Error(data.message || data.error || `HTTP ${r.status}`);
+          }
+          setAiAnswer({
+            answer: data.answer,
+            refs: Array.isArray(data.referencedShops) ? data.referencedShops : [],
+            usage: data.usage
+          });
+        } catch (e) {
+          setAiError(e.message || String(e));
+        } finally {
           setAiLoading(false);
-        }, 250);
+        }
       }, []);
 
-      // Phase 1 더미 환영 메시지 (Phase 3에서 AI 응답으로 교체)
-      const todayMsg = neighborhood
-        ? `오늘 ${neighborhood.name}에는 ${shops.length}개 가게가 등록되어 있어요. 정착형도 메이커도 트럭도 다 모였습니다.`
-        : '동네 데이터를 불러오는 중…';
+      // 강조할 가게 ID 집합 (AI 답변 + 오늘의 한 줄 참조)
+      const highlightedIds = useMemo(() => {
+        const set = new Set();
+        (aiAnswer?.refs || []).forEach((id) => set.add(id));
+        (todayRefs || []).forEach((id) => set.add(id));
+        return set;
+      }, [aiAnswer, todayRefs]);
+
+      // 답변에 언급된 가게 객체들 (참조 표시용)
+      const referencedShopsList = useMemo(() => {
+        if (!aiAnswer?.refs?.length) return [];
+        return aiAnswer.refs
+          .map((id) => shops.find((s) => s.id === id))
+          .filter(Boolean);
+      }, [aiAnswer, shops]);
 
       return (
         <div className="min-h-screen">
           <Header neighborhoodName={neighborhood?.name || '염창동'} user={user} />
           <main>
             <ConciergeBar onAsk={handleAsk} isLoading={aiLoading} />
-            <TodayLine message={todayMsg} loading={loading} />
+
+            {/* AI 답변 영역 — 질문 후 표시 */}
+            {(aiAnswer || aiError) && (
+              <section className="max-w-5xl mx-auto px-4 mt-3">
+                {aiAnswer && (
+                  <div className="bg-warm border-l-4 border-orange-maple rounded-r-2xl px-4 py-3 sm:px-5 sm:py-4 shadow-paper">
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="font-serif-ko text-orange-maple text-sm">동네 친구의 답</span>
+                      <button onClick={() => setAiAnswer(null)} className="ml-auto text-ink/40 hover:text-ink text-sm" aria-label="닫기">✕</button>
+                    </div>
+                    <p className="text-ink leading-relaxed text-[15px] sm:text-base">{aiAnswer.answer}</p>
+                    {referencedShopsList.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {referencedShopsList.map((s) => (
+                          <button
+                            key={s.id}
+                            onClick={() => setSelectedShop(s)}
+                            className="text-xs px-2.5 py-1 rounded-full bg-orange-maple/10 border border-orange-maple/40 text-ink hover:bg-orange-maple/20 transition-colors"
+                          >
+                            👉 {s.name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+                {aiError && (
+                  <div className="bg-red-clay/10 border border-red-clay/40 text-red-clay rounded-2xl px-4 py-3 text-sm">
+                    ⚠️ AI 호출 실패: {aiError}
+                    <button onClick={() => setAiError(null)} className="ml-2 text-red-clay/70 hover:text-red-clay">✕</button>
+                  </div>
+                )}
+              </section>
+            )}
+
+            <TodayLine message={todayMsg || '동네 데이터를 불러오는 중…'} loading={loading || todayLoading} />
 
             {error && (
               <div className="max-w-5xl mx-auto px-4 mt-6">
@@ -576,7 +673,7 @@
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                   {filteredShops.map((s) => (
-                    <ShopCard key={s.id} shop={s} onClick={setSelectedShop} />
+                    <ShopCard key={s.id} shop={s} onClick={setSelectedShop} highlighted={highlightedIds.has(s.id)} />
                   ))}
                 </div>
               )}
