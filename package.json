@@ -1,0 +1,17 @@
+{
+  "name": "dongne-golmok",
+  "version": "0.1.0",
+  "private": true,
+  "description": "동네 친구에게 묻는 것처럼 — 숨어있는 우리동네가게와 주민이 서로를 발견하는 AI 컨시어지 동네 알림판 (염창동 v1 파일럿)",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

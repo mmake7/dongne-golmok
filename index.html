@@ -159,7 +159,7 @@
     // Layout Components
     // -----------------------------------------
 
-    function Header({ neighborhoodName }) {
+    function Header({ neighborhoodName, user }) {
       return (
         <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur border-b border-paper/40">
           <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -170,7 +170,10 @@
               <span className="font-serif-ko text-sm text-orange-maple tracking-wider">GOLMOK.</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-ink/60 hidden sm:inline">지금 동네는</span>
+              {user && (
+                <span className="hidden sm:inline text-ink/60">{user.name}님</span>
+              )}
+              <span className="text-ink/60 hidden sm:inline">·</span>
               <span className="font-serif-ko font-semibold text-ink px-2 py-1 rounded-md bg-warm border border-paper/40">
                 {neighborhoodName}
               </span>
@@ -450,6 +453,7 @@
     function App() {
       const [shops, setShops] = useState([]);
       const [neighborhood, setNeighborhood] = useState(null);
+      const [user, setUser] = useState(null);
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(null);
 
@@ -458,21 +462,36 @@
       const [selectedShop, setSelectedShop] = useState(null);
       const [aiLoading, setAiLoading] = useState(false);
 
-      // 데이터 로드
+      // 데이터 로드 — Phase 2: /api/shops 우선, 실패 시 정적 파일 fallback
       useEffect(() => {
-        Promise.all([
-          fetch('./data/shops.json').then((r) => r.json()),
-          fetch('./data/neighborhoods.json').then((r) => r.json())
-        ])
-          .then(([shopsData, nbData]) => {
+        const fetchShops = fetch('/api/shops')
+          .then((r) => {
+            if (!r.ok) throw new Error('api not available');
+            return r.json();
+          })
+          .catch(() => {
+            // npx serve 같은 정적 서버에서는 /api 호출 안 됨 → 정적 fallback
+            return fetch('./data/shops.json').then((r) => r.json());
+          });
+
+        const fetchNb = fetch('./data/neighborhoods.json').then((r) => r.json());
+
+        // 시뮬레이션 로그인 — 실패해도 무시 (정적 모드 OK)
+        const fetchAuth = fetch('/api/auth')
+          .then((r) => (r.ok ? r.json() : null))
+          .catch(() => null);
+
+        Promise.all([fetchShops, fetchNb, fetchAuth])
+          .then(([shopsData, nbData, authData]) => {
             setShops(shopsData.shops || []);
             const cur = (nbData.neighborhoods || []).find((n) => n.id === nbData.current);
             setNeighborhood(cur || null);
+            if (authData?.user) setUser(authData.user);
             setLoading(false);
           })
           .catch((e) => {
             console.error(e);
-            setError('데이터 로드 실패. 로컬 파일이라면 npx serve . 로 띄워주세요.');
+            setError('데이터 로드 실패. vercel dev 또는 npx serve . 로 띄워주세요.');
             setLoading(false);
           });
       }, []);
@@ -515,7 +534,7 @@
 
       return (
         <div className="min-h-screen">
-          <Header neighborhoodName={neighborhood?.name || '염창동'} />
+          <Header neighborhoodName={neighborhood?.name || '염창동'} user={user} />
           <main>
             <ConciergeBar onAsk={handleAsk} isLoading={aiLoading} />
             <TodayLine message={todayMsg} loading={loading} />
