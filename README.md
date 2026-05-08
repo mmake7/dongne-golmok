@@ -195,6 +195,21 @@ dongne-golmok/
 
 ---
 
+## 통합 기획안 PDF
+
+본 프로젝트의 정체성·문제·사용자·v1 범위·미래 비전을 한 PDF로 정리한 통합 기획안.
+
+- **파일**: [`docs/dongne-golmok-plan.pdf`](./docs/dongne-golmok-plan.pdf)
+- **GitHub raw**: https://github.com/mmake7/dongne-golmok/blob/main/docs/dongne-golmok-plan.pdf
+- **활용**:
+  - 투자자·협력자 1:1 시연 자료
+  - harbor.school 6주차 quest #3 (개인 프로젝트 기획서) 충족 자산
+  - 단톡방·외부 공유용 (민감 정보 점검 완료)
+
+PDF 외에 같은 내용은 분할 마크다운으로도 보존 (`docs/MISSION.md` / `CONCEPT.md` / `ROADMAP.md` / `DEV.md` + 루트 `DEV.md` v0.1 / `AUDIENCES.md` v0.1).
+
+---
+
 ## 라이센스
 
 미정 (파일럿 단계).
