@@ -49,3 +49,5 @@ tmp/
 
 # --- 이미지 (생성 결과는 commit, 임시 작업본만 제외) ---
 public/images/temp/
+
+.vercel
