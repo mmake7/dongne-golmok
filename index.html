@@ -6,11 +6,9 @@
   <title>동네골목 GOLMOK. — 염창동</title>
   <meta name="description" content="동네 친구에게 묻는 것처럼. 숨어있는 우리동네가게와 주민이 서로를 발견하는 곳." />
 
-  <!-- Google Fonts: Noto Serif KR (헤더) + Pretendard (본문) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <!-- Pretendard (변수형, 헤더+본문 통일) -->
+  <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,15 +20,17 @@
           colors: {
             cream: '#E8DFD3',       // 메인 배경 — 크라프트 베이지
             warm: '#F5E6C8',        // 보조 배경 — 따뜻한 옐로우
-            ink: '#3E2A1F',         // 본문 — 짙은 갈색
+            ink: '#2A2A2A',         // 본문 — 가독성 우선 (5/8 핀포인트 패치, 기존 #3E2A1F)
+            'ink-soft': '#5A5A5A',  // 보조 텍스트 — 명확한 회색
             'orange-maple': '#D87844', // 강조 — 단풍 오렌지 (정착형/CTA)
             'red-clay': '#A0413A',  // 강조 보조 — 짙은 적갈색 (1인메이커)
             moss: '#7A8B5C',        // 이동형 가게 표시 — 모스 그린
             paper: '#C8B89C'        // 카드 테두리 — 종이 결
           },
           fontFamily: {
-            serif: ['"Noto Serif KR"', 'serif'],
-            sans: ['Pretendard', '-apple-system', 'sans-serif']
+            // 헤더+본문 모두 Pretendard 통일 (5/8 핀포인트 패치). serif는 호환성 위해 유지하되 같은 폰트
+            serif: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+            sans:  ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif']
           },
           boxShadow: {
             paper: '0 1px 0 rgba(62, 42, 31, 0.08), 0 4px 12px rgba(62, 42, 31, 0.06)',
@@ -47,8 +47,18 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <style>
-    html, body { background-color: #E8DFD3; color: #3E2A1F; font-family: 'Pretendard', -apple-system, sans-serif; }
-    .font-serif-ko { font-family: 'Noto Serif KR', serif; }
+    /* 5/8 핀포인트 패치: 폰트 Pretendard 통일 + 가독성(16px / line-height 1.65 / #2A2A2A) */
+    html, body {
+      background-color: #E8DFD3;
+      color: #2A2A2A;
+      font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* 헤더용 클래스 — Pretendard로 통일 (이전엔 Noto Serif KR이었음) */
+    .font-serif-ko { font-family: 'Pretendard Variable', Pretendard, sans-serif; font-weight: 700; letter-spacing: -0.01em; }
     /* 종이 결 배경 */
     .paper-bg {
       background-color: #E8DFD3;
